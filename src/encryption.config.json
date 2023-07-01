@@ -1,0 +1,9 @@
+{
+    "out":"./",
+    "include":"./test",
+    "entry":"index",
+    "external_modules":[
+        "@minecraft/server",
+        "@miencraft/server-ui"
+    ]
+}
