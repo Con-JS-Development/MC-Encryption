@@ -1,9 +1,10 @@
 {
-    "out":"./",
+    "out":"../output/index.js",
     "include":"./test",
-    "entry":"index",
+    "entry":"index.js",
+    "key":"ConMaster2112",
     "external_modules":[
         "@minecraft/server",
-        "@miencraft/server-ui"
+        "@minecraft/server-ui"
     ]
 }

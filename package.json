@@ -2,8 +2,8 @@
   "name": "core-encryption",
   "version": "0.1.0",
   "description": "Pack safety locker",
-  "main": "./src/index.js",
-  "type": "module",
+  "main": "./src/core-external/index.js",
+  "type": "commonjs",
   "scripts": {
     "test": "node ./run_encryption/index.cjs"
   },

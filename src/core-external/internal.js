@@ -24,7 +24,7 @@ class EncryptionKey{
     /**@param {string[]} code */
     *encrypt(code){
         for (let i = 0; i < code.length; i++) {
-            yield Sthis.coreGet(charCodeAt(code,i),i);
+            yield this.coreGet(charCodeAt(code,i),i);
         }
     }
 }
@@ -126,7 +126,7 @@ function module_require(raw,path,key){
     if(a) return encrypted_modules[a].importModule(key);
     throw new ReferenceError("Module not found [" + raw +"]");
 }
-const {setDefaultSpawnLocation:sD,getDynamicProperty:gD} = m.world;
+const {setDynamicProperty:sD,getDynamicProperty:gD} = m.world;
 m.system.afterEvents.scriptEventReceive.subscribe(({sourceEntity,message,id})=>{
     if(id === "encryption:key" && key_lock === message){
         sD.call(m.world,"encrytion_key",message);
@@ -136,19 +136,11 @@ m.system.afterEvents.scriptEventReceive.subscribe(({sourceEntity,message,id})=>{
         sD.call(m.world,"encrytion_key",sourceEntity.name);
         console.warn("New encryption key defined, use /reload to reload engine session with new encryption key");
     }
-},{namespaces:"encryption"})
+},{namespaces:["encryption"]})
 m.world.afterEvents.worldInitialize.subscribe(({propertyRegistry:pr})=>{
-    pr.registerWorldDynamicProperties(new m.DynamicPropertiesDefinition().defineString("encrytion_key",255,"0"));
+    pr.registerWorldDynamicProperties(new m.DynamicPropertiesDefinition().defineString("encrytion_key",255));
     globalThis.propertyRegistry = pr;
-    encrypted_modules[entry].importModule(gD.call(m.world,"encrytion_key"));
+    console.warn("Key:" + gD.call(m.world,"encrytion_key"));
+    encrypted_modules[entry].importModule(new EncryptionKey(gD.call(m.world,"encrytion_key")));
     delete globalThis.propertyRegistry;
 });
-
-const name_lock = false;
-const key_lock = false;
-const entry = "";
-const external_modules = {};
-/**@type {{[key:string]: EncriptedModule}} */
-const encrypted_modules = {
-    "index.js":new EncriptedModule("",new Path("index.js"),module_require)
-}
