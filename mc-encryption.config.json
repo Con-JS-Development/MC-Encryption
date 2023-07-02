@@ -1,0 +1,15 @@
+{
+   "include": "./src",
+   "out": "./dist/index.js",
+   "entry": "index.js",
+   "type":"bundle",
+   "options":{
+      "key_lock": false,
+      "name_lock": true,
+      "key": "encryption_key"
+   },
+   "external_modules": [
+      "@minecraft/server",
+      "@minecraft/server-ui"
+   ]
+}
