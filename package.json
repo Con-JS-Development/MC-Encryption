@@ -1,23 +1,21 @@
 {
-  "name": "core-encryption",
-  "version": "0.1.0",
-  "description": "Pack safety locker",
-  "main": "./src/core-external/index.js",
+  "name": "mc-encryption",
+  "version": "0.1.1",
+  "description": "mc-encryption for Script API codes / Code guard",
+  "main": "./src/index.js",
   "type": "commonjs",
-  "scripts": {
-    "test": "node ./run_encryption/index.cjs"
+  "scripts": {},
+  "bin": {
+    "mc-encryption": "./bin/mc-encryption.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Con-JS-Development/Core-Encryption.git"
   },
   "author": "conmaster2112",
-  "license": "MIT",
+  "license": "CC0-1.0",
   "bugs": {
     "url": "https://github.com/Con-JS-Development/Core-Encryption/issues"
   },
-  "homepage": "https://github.com/Con-JS-Development/Core-Encryption#readme",
-  "dependencies": {
-    "@minecraft/server": "^1.5.0-beta.1.20.20-preview.20"
-  }
+  "homepage": "https://github.com/Con-JS-Development/Core-Encryption#readme"
 }

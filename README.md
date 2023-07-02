@@ -1,2 +1,2 @@
-# Core-Encryption
-Encryption for your minecraft packs
+# MC-Encryption
+Encryption for your scripts in minecraft packs

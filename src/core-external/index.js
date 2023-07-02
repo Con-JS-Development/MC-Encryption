@@ -37,12 +37,11 @@ class Coder{
         return String.fromCharCode(...key.encrypt(code));
     }
 }
-const EncriptedModuleClass = "EncriptedModule";
+const EncriptedModuleClass = "EM";
 const PathClassName = "Path";
 const module_require = "module_require";
 const default_config = {
     "regex_filter":"/[^]+\.js$/",
-    "entry":"index",
     "external_modules":[],
     "key_lock":false,
     "name_lock":true
@@ -104,7 +103,11 @@ function fileMaker(config){
         if(typeof e === "object" && e.name && e.path) return e;
         return undefined;
     }).filter(e=>e!==undefined);
-    if(!config.entry) config.entry = encrypted_modules[0].name;
+    console.log(config.entry);
+    if(!config.entry) {
+        console.log("[Encryptor]","Assigned first module as entry: " + encrypted_modules[0].name);
+        config.entry = encrypted_modules[0].name;
+    }
     let entry = encrypted_modules.find((e)=>e.name === config.entry);
     if(!entry) throw new ReferenceError("No entry point found: " + entry);
     fs.writeFileSync(config.relative(config.out),codeMaker(encrypted_modules,external_modules,entry.name,config.key_lock, config.name_lock));
@@ -146,12 +149,12 @@ function loadConfig(con){
     if(!config.out || config.out === "") throw new TypeError("Output property not specified");
     if((config.key??"").length < 1) throw new SyntaxError("key is not defined in config");
     config.relative = (p)=>path.resolve(path.dirname(con),p);
+    if(!(config.key_lock || config.name_lock)) console.warn("[Encryptor]-[Warnning]","Script can't be unlocked when name_lock and key_lock is disabled");
     return config;
 }
-try {
-    fileMaker(loadConfig(".\\src\\encryption.config.json"));
-} catch (error) {
-    console.error(error.constructor.name + ":" + error.message);
-    process.exitCode = 1
-    process.exit(1);
+module.exports={
+    loadConfig,
+    fileMaker,
+    Coder,
+    EncryptionKey
 }
